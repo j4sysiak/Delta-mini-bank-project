@@ -44,7 +44,7 @@ class AccountStatementFormatterSpec extends Specification {
 
     def "String lines returns no lines for an empty string"() {
         expect:
-        " ".lines().toList().isEmpty()
+        "".lines().toList().isEmpty()
     }
 
     def "String lines recognizes LF CRLF and CR separators"() {
