@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class TransactionReportSpec extends Specification {
 
-    def "returns amounts for deposits only"() {
+    def "zwraca kwoty tylko dla depozytów"() {
         expect:
         report().depositAmounts() == [
                 new BigDecimal("100.00"),
@@ -12,12 +12,12 @@ class TransactionReportSpec extends Specification {
         ]
     }
 
-    def "sums deposit amounts"() {
+    def "sumuje kwoty depozytów"() {
         expect:
         report().totalDeposits().compareTo(new BigDecimal("125.50")) == 0
     }
 
-    def "returns zero when there are no deposits"() {
+    def "zwraca zero, gdy nie ma depozytów"() {
         given:
         def report = new TransactionReport([
                 transaction(TransactionKind.WITHDRAWAL, "10.00")
@@ -27,7 +27,13 @@ class TransactionReportSpec extends Specification {
         report.totalDeposits().compareTo(BigDecimal.ZERO) == 0
     }
 
-    def "does not retain the input list"() {
+    /*
+    Ten test sprawdza, czy `TransactionReport` nie przechowuje przekazanej listy wejściowej jako własnej.
+    Po utworzeniu raportu test dopisuje do oryginalnej listy kolejną transakcję i weryfikuje,
+    że raport nadal zwraca tylko pierwotną kwotę `10.00`.
+    To potwierdza, że konstruktor kopiuje listę.
+    * */
+    def "nie zachowuje listy wejściowej"() {
         given:
         def transactions = new ArrayList<BankTransaction>()
         transactions.add(transaction(TransactionKind.DEPOSIT, "10.00"))
@@ -40,7 +46,7 @@ class TransactionReportSpec extends Specification {
         report.depositAmounts() == [new BigDecimal("10.00")]
     }
 
-    def "rejects a null transaction"() {
+    def "odrzuca nullową transakcję"() {
         given:
         def transactions = new ArrayList<BankTransaction>()
         transactions.add(null)
