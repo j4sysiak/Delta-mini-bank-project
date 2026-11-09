@@ -14,7 +14,10 @@ class TransferDslSpec extends Specification {
 
     def "przekazuje domknięcie konfigurujące do buildera"() {
         when:
+        // Closure przekazane do TransferDsl.transfer(...)
         // przekazuje blok { ... } jako argument typu Closure.
+        // opis transferu wygląda tak, jakby był wbudowany w język Groovy,
+        // ale w rzeczywistości jest to wywołanie metody transfer(...) z obiektu dsl, która przyjmuje Closure jako argument.
         def draft = dsl.transfer {  // Wywołanie DSL, które przekazuje domknięcie konfigurujące przelew.
             fromAccount = "PLN-1001"
             toAccount = "PLN-1002"
