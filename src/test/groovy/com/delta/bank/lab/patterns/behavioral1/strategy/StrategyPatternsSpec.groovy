@@ -1,7 +1,7 @@
-package com.delta.bank.lab.patterns.behavioral.strategy
+package com.delta.bank.lab.patterns.behavioral1.strategy
 
-import com.delta.bank.lab.patterns.behavioral.FeeStrategy
-import com.delta.bank.lab.patterns.behavioral.TransferService
+import com.delta.bank.lab.patterns.behavioral1.FeeStrategy
+import com.delta.bank.lab.patterns.behavioral1.TransferService
 import spock.lang.Specification
 
 /*

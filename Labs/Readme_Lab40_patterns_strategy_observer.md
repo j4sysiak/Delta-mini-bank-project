@@ -16,7 +16,7 @@ Dodaj tylko wskazane pliki. Nie zmieniaj istniejącego kodu ani Gradle.
 Plik: `src\main\java\com\delta\bank\lab\patterns\behavioral\FeeStrategy.java`
 
 ```java
-package com.delta.bank.lab.patterns.behavioral;
+package com.delta.bank.lab.patterns.behavioral1;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -38,7 +38,7 @@ public interface FeeStrategy {
 Plik: `...\behavioral\TransferService.java`
 
 ```java
-package com.delta.bank.lab.patterns.behavioral;
+package com.delta.bank.lab.patterns.behavioral1;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -65,7 +65,7 @@ nie zawiera `if (type == ...)`.
 Plik: `...\behavioral\BalanceEvent.java`
 
 ```java
-package com.delta.bank.lab.patterns.behavioral;
+package com.delta.bank.lab.patterns.behavioral1;
 
 import java.math.BigDecimal;
 
@@ -73,16 +73,18 @@ public sealed interface BalanceEvent {
 
     String accountId();
 
-    record Deposited(String accountId, BigDecimal amount) implements BalanceEvent {}
+    record Deposited(String accountId, BigDecimal amount) implements BalanceEvent {
+    }
 
-    record Withdrawn(String accountId, BigDecimal amount) implements BalanceEvent {}
+    record Withdrawn(String accountId, BigDecimal amount) implements BalanceEvent {
+    }
 }
 ```
 
 Plik: `...\behavioral\ObservableAccount.java`
 
 ```java
-package com.delta.bank.lab.patterns.behavioral;
+package com.delta.bank.lab.patterns.behavioral1;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -135,7 +137,7 @@ w trakcie powiadamiania. `subscribe` zwraca `Runnable` do wypisania.
 Plik: `src\test\groovy\com\delta\bank\lab\patterns\behavioral\BehavioralPatternsSpec.groovy`
 
 ```groovy
-package com.delta.bank.lab.patterns.behavioral
+package com.delta.bank.lab.patterns.behavioral1
 
 import spock.lang.Specification
 
@@ -146,10 +148,10 @@ class BehavioralPatternsSpec extends Specification {
         new TransferService(strategy).totalCost(new BigDecimal("100.00")) == total
 
         where:
-        strategy              || total
-        FeeStrategy.FLAT      || new BigDecimal("102.00")
-        FeeStrategy.PERCENT   || new BigDecimal("101.00")
-        FeeStrategy.FREE      || new BigDecimal("100.00")
+        strategy            || total
+        FeeStrategy.FLAT    || new BigDecimal("102.00")
+        FeeStrategy.PERCENT || new BigDecimal("101.00")
+        FeeStrategy.FREE    || new BigDecimal("100.00")
     }
 
     def "strategy can be a lambda"() {

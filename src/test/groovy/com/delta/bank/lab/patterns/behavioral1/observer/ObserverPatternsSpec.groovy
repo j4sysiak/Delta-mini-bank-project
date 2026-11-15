@@ -1,7 +1,7 @@
-package com.delta.bank.lab.patterns.behavioral.observer
+package com.delta.bank.lab.patterns.behavioral1.observer
 
-import com.delta.bank.lab.patterns.behavioral.BalanceEvent
-import com.delta.bank.lab.patterns.behavioral.ObservableAccount
+import com.delta.bank.lab.patterns.behavioral1.BalanceEvent
+import com.delta.bank.lab.patterns.behavioral1.ObservableAccount
 import spock.lang.Specification
 
 class ObserverPatternsSpec  extends Specification {
