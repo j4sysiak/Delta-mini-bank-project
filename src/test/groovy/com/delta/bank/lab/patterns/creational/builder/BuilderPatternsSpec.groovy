@@ -1,8 +1,10 @@
-package com.delta.bank.lab.patterns.creational
+package com.delta.bank.lab.patterns.creational.builder
 
+
+import com.delta.bank.lab.patterns.creational.TransferRequest
 import spock.lang.Specification
 
-class CreationalPatternsSpec extends Specification {
+class BuilderPatternsSpec extends Specification {
 
     /*
     **Factory wybiera, jaki obiekt utworzyć, a Builder pozwala skonfigurować obiekt krok po kroku.**
@@ -22,25 +24,6 @@ class CreationalPatternsSpec extends Specification {
      W skrócie: Factory — „utwórz odpowiedni rodzaj konta”;
      Builder — „zbuduj przelew z tymi danymi”.
     * */
-
-    def "fabryka tworzy odpowiedni podtyp"() {
-        expect:
-        AccountFactory.create(type, "A-1").class == expected
-
-        where:
-        type                             || expected
-        AccountFactory.Type.CHECKING     || Account.Checking
-        AccountFactory.Type.SAVINGS      || Account.Savings
-        AccountFactory.Type.BUSINESS     || Account.Business
-    }
-
-    def "fabryka odrzuca null"() {
-        when:
-        AccountFactory.create(null, "A-1")
-
-        then:
-        thrown(NullPointerException)
-    }
 
     def "builder tworzy poprawne żądanie z domyślnym pustym memo"() {
         when:
@@ -71,18 +54,5 @@ class CreationalPatternsSpec extends Specification {
         "PLN-1"  | new BigDecimal("1.00")  || IllegalArgumentException
         "PLN-2"  | BigDecimal.ZERO         || IllegalArgumentException
         "PLN-2"  | null                    || NullPointerException
-    }
-
-    def "enum singleton jest jedną instancją i generuje unikalne identyfikatory"() {
-        expect:
-        IdGenerator.INSTANCE.is(IdGenerator.valueOf("INSTANCE"))
-
-        when:
-        def first = IdGenerator.INSTANCE.next("TX")
-        def second = IdGenerator.INSTANCE.next("TX")
-
-        then:
-        first != second
-        first.startsWith("TX-")
     }
 }

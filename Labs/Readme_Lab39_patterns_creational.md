@@ -220,13 +220,13 @@ class CreationalPatternsSpec extends Specification {
 PowerShell:
 
 ```powershell
-.\gradlew.bat test --tests "com.delta.bank.lab.patterns.creational.CreationalPatternsSpec"
+.\gradlew.bat test --tests "com.delta.bank.lab.patterns.creational.fabryka.FactoryPatternsSpec"
 ```
 
 Git Bash:
 
 ```bash
-./gradlew test --tests "com.delta.bank.lab.patterns.creational.CreationalPatternsSpec"
+./gradlew test --tests "com.delta.bank.lab.patterns.creational.fabryka.FactoryPatternsSpec"
 ```
 
 ## Eksperymenty
