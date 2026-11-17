@@ -1,5 +1,9 @@
 package com.delta.bank.lab.patterns.behavioral2.state;
 
+// Kontekst (Payment) deleguje zachowanie do aktualnego stanu.
+// Dozwolone przejścia są opisane w klasach stanów, bez rozbudowanego switch w kontekście.
+// klasy stanów to: Pending, Paid, Cancelled
+
 public final class Payment {
 
     private PaymentState state = new Pending();

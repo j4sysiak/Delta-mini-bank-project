@@ -8,6 +8,9 @@ import java.util.Queue;
 // Command opakowuje żądanie jako obiekt; kolejka (invoker) może je odroczyć.
 public final class CommandQueue {
 
+    // To pole przechowuje kolejkę poleceń typu `BankCommand`.
+    // `ArrayDeque` realizuje kolejkę FIFO, więc polecenia można wykonywać w kolejności ich dodania.
+    // `private` ogranicza dostęp do pola z zewnątrz klasy, a `final` oznacza, że pole nie może wskazywać na inną kolejkę.
     private final Queue<BankCommand> commands = new ArrayDeque<>();
 
     public void submit(BankCommand command) {

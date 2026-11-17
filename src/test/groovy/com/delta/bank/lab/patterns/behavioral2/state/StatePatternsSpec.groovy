@@ -5,7 +5,7 @@ import spock.lang.Specification
 
 class StatePatternsSpec extends Specification {
 
-    def "payment transitions from pending to paid"() {
+    def "płatność przechodzi ze stanu oczekującego do opłaconego"() {
         given:
         def payment = new Payment()
 
@@ -16,7 +16,7 @@ class StatePatternsSpec extends Specification {
         payment.status() == "PAID"
     }
 
-    def "pending payment can be cancelled"() {
+    def "płatność oczekująca może zostać anulowana"() {
         given:
         def payment = new Payment()
 
@@ -27,7 +27,7 @@ class StatePatternsSpec extends Specification {
         payment.status() == "CANCELLED"
     }
 
-    def "paid payment cannot be paid again or cancelled"() {
+    def "płatność opłacona nie może zostać opłacona ponownie ani anulowana"() {
         given:
         def payment = new Payment()
         payment.pay()

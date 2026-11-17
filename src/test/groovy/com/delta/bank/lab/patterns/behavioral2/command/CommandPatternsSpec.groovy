@@ -4,10 +4,16 @@ import spock.lang.Specification
 
 class CommandPatternsSpec extends Specification {
 
-    def "command is deferred until the invoker runs it"() {
+    // Wzorzec Command opakowuje żądanie jako obiekt; kolejka (invoker) może je odroczyć.
+    // DepositCommand deleguje wykonanie do BankAccount (receiver).
+
+    def "Polecenie zostaje odroczone do momentu, gdy wywołujący je wykona"() {
         given:
         def account = new BankAccount()
         def queue = new CommandQueue()
+
+        // Ta linia tworzy polecenie wpłaty 25,00 na podane konto i dodaje je do kolejki queue.
+        // Sama wpłata jeszcze się nie wykonuje — nastąpi dopiero po wywołaniu queue.runNext() albo queue.runAll().
         queue.submit(new DepositCommand(account, new BigDecimal("25.00")))
 
         expect:
@@ -15,6 +21,7 @@ class CommandPatternsSpec extends Specification {
         queue.size() == 1
 
         when:
+        // Wykonuje następne polecenie z kolejki — wpłata zostaje zaksięgowana, a polecenie usunięte z kolejki.
         queue.runNext()
 
         then:
@@ -22,7 +29,7 @@ class CommandPatternsSpec extends Specification {
         queue.size() == 0
     }
 
-    def "queue runs commands in submission order"() {
+    def "Kolejka wykonuje polecenia w kolejności ich zgłoszenia"() {
         given:
         def account = new BankAccount()
         def queue = new CommandQueue()
@@ -30,6 +37,7 @@ class CommandPatternsSpec extends Specification {
         queue.submit(new DepositCommand(account, new BigDecimal("5.00")))
 
         when:
+        // Wykonuje wszystkie polecenia w kolejce — wpłaty zostają zaksięgowane, a polecenia usunięte z kolejki.
         queue.runAll()
 
         then:

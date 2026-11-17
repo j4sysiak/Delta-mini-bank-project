@@ -3,8 +3,8 @@ package com.delta.bank.lab.patterns.behavioral2.templateMethod
 import spock.lang.Specification
 
 /*
-Wzorzec Template Method (Metoda Szablonowa) - definiuje w klasie bazowej `StatementGenerator`
-szkielet algorytmu i kolejność jego kroków, pozostawiając podklasom implementację wybranych etapów.
+Wzorzec Template Method (Metoda Szablonowa) - definiuje w klasie bazowej `StatementGenerator` szkielet algorytmu i kolejność jego kroków,
+pozostawiając podklasom implementację wybranych etapów.
 
 W tym teście `generate` w generatorze zestawienia wykonuje całą procedurę:
  - zapisuje nagłówek, wiersze transakcji, a na końcu stopkę `END`.
