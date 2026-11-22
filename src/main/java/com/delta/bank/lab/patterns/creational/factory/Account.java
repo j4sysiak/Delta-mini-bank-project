@@ -1,4 +1,4 @@
-package com.delta.bank.lab.patterns.creational;
+package com.delta.bank.lab.patterns.creational.factory;
 
 import java.math.BigDecimal;
 

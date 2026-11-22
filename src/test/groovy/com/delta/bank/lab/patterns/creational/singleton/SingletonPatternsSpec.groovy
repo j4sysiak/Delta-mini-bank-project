@@ -1,7 +1,7 @@
 package com.delta.bank.lab.patterns.creational.singleton
 
 
-import com.delta.bank.lab.patterns.creational.IdGenerator
+import com.delta.bank.lab.patterns.creational.factory.IdGenerator
 import spock.lang.Specification
 
 class SingletonPatternsSpec extends Specification {

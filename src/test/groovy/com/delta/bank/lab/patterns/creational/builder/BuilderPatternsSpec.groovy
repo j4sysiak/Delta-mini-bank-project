@@ -1,7 +1,7 @@
 package com.delta.bank.lab.patterns.creational.builder
 
 
-import com.delta.bank.lab.patterns.creational.TransferRequest
+import com.delta.bank.lab.patterns.creational.factory.TransferRequest
 import spock.lang.Specification
 
 class BuilderPatternsSpec extends Specification {

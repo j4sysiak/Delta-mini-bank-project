@@ -1,7 +1,6 @@
 package com.delta.bank.lab.patterns.creational.factory
 
-import com.delta.bank.lab.patterns.creational.Account
-import com.delta.bank.lab.patterns.creational.AccountFactory
+
 import spock.lang.Specification
 
 class FactoryPatternsSpec extends Specification {
