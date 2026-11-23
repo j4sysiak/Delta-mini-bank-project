@@ -69,8 +69,8 @@ Ostatni test sprawdza jedynie typ zdarzenia przez `instanceof`; nie testuje dopa
         account.withdraw(new BigDecimal("20.00"))
 
         then:
-        events*.getClass() == [BalanceEvent.Deposited, BalanceEvent.Withdrawn]
-        events[0].amount() == new BigDecimal("50.00")
+        eventsList*.getClass() == [BalanceEvent.Deposited, BalanceEvent.Withdrawn]
+        eventsList[0].amount() == new BigDecimal("50.00")
         account.balance() == new BigDecimal("30.00")
     }
 
@@ -78,7 +78,7 @@ Ostatni test sprawdza jedynie typ zdarzenia przez `instanceof`; nie testuje dopa
         given:
         def account = new ObservableAccount("PLN-1")
         def count = 0
-        def unsubscribe = account.subscribe { count++ }
+        def unsubscribe = account.subscribeEvent { count++ }
 
         when:
         account.deposit(new BigDecimal("1.00"))
@@ -93,7 +93,7 @@ Ostatni test sprawdza jedynie typ zdarzenia przez `instanceof`; nie testuje dopa
         given:
         def account = new ObservableAccount("PLN-1")
         def listener = Mock(java.util.function.Consumer)
-        account.subscribe(listener)
+        account.subscribeEvent(listener)
 
         when:
         account.withdraw(new BigDecimal("1.00"))

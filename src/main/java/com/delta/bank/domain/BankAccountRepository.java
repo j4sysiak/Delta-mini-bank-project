@@ -9,9 +9,15 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Repozytorium do odczytu i zapisu encji rachunków bankowych.
+ * Numer rachunku jest kluczem głównym.
+ */
 public interface BankAccountRepository extends JpaRepository<BankAccountEntity, String> {
 
-    // Blokuje wybrane konta do zapisu i zwraca je w deterministycznej kolejności po numerze.
+    // Ta kwerenda pobiera rachunki o podanych numerach i — dzięki `@Lock(PESSIMISTIC_WRITE)`
+    // — blokuje je na czas transakcji, żeby równoległa operacja nie zmieniła ich w trakcie, np. przelewu.
+    //`order by a.number` zwraca je w stałej kolejności. To ma ograniczać ryzyko zakleszczeń, gdy różne transakcje blokują te same rachunki.
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("""
     select a

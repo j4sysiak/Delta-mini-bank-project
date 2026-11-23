@@ -12,6 +12,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "bank_accounts")
 @EntityListeners(AuditingEntityListener.class)
+/**
+ * Encja rachunku bankowego przechowywana w tabeli {@code bank_accounts}.
+ * Zawiera dane właściciela, saldo i walutę oraz pola wersjonowania i audytu.
+ */
 public class BankAccountEntity {
 
     @Id

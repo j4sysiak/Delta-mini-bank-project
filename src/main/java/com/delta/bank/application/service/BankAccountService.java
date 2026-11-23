@@ -27,11 +27,14 @@ public class BankAccountService {
 
     // Warto dodać @Transactional — dla Optimistic Locking: @Transactional + @Version działa razem.
     @Transactional
-    public BankAccountEntity openAccount(String number, String owner, BigDecimal balance, String currency) {
+    public BankAccountEntity openAccount(String number,
+                                         String owner,
+                                         BigDecimal balance,
+                                         String currency) {
         validate(number, owner, balance, currency);
 
         if (repository.existsById(number)) {
-            throw new IllegalArgumentException("Account already exists: " + number);
+            throw new IllegalArgumentException(STR."Account already exists: \{number}");
         }
 
         BankAccountEntity account = repository.save(new BankAccountEntity(number, owner, balance, currency));

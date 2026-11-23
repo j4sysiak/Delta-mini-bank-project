@@ -6,7 +6,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 /*
 To jest DTO (Data Transfer Object), ponieważ:
- - przenosi dane między warstwami aplikacji,
+ - przenosi dane między warstwami aplikacji a warstwą prezentacji (API),
  - nie zawiera logiki biznesowej,
  - reprezentuje odpowiedź API (CreateAccountRequest).
 
