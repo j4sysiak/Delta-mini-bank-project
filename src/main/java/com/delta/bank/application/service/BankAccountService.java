@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -164,9 +165,53 @@ public class BankAccountService {
               - kluczem jest numer konta (BankAccountEntity::getNumber)
               - wartością jest obiekt BankAccountEntity
         * */
+
+
+        Collector<BankAccountEntity, ?, Map<String, BankAccountEntity>> map =
+                Collectors.toMap(BankAccountEntity::getNumber, acc -> acc);
+
+
+        /*
+        @FunctionalInterface
+          public interface Function<T, R> {
+          R apply (T t);
+        }
+
+        @FunctionalInterface
+          public interface Function<BankAccountEntity, String> {
+          BankAccountEntity apply (String t);
+        }
+
+        Function<BankAccountEntity, String> keyMapper = new Function<BankAccountEntity, String>() {
+            @Override
+            public String apply(BankAccountEntity bankAccountEntity) {
+                return bankAccountEntity.getNumber();
+            }
+        };
+
+        Function<BankAccountEntity, BankAccountEntity> valueMapper = new Function<BankAccountEntity, BankAccountEntity>() {
+            @Override
+            public BankAccountEntity apply(BankAccountEntity bankAccountEntity) {
+                return bankAccountEntity;
+            }
+        };
+
+        lambda like:
+        Function<BankAccountEntity, String> keyMapper = bankAccountEntity -> bankAccountEntity.getNumber();
+        Function<BankAccountEntity, BankAccountEntity> valueMapper = acc -> acc;
+
+        reference like:
+        Function<BankAccountEntity, String> keyMapper = BankAccountEntity::getNumber;
+
+        Collector<BankAccountEntity, ?, Map<String, BankAccountEntity>> map = Collectors.toMap(keyMapper, valueMapper);
+
+        Collector<BankAccountEntity, ?, Map<String, BankAccountEntity>> map =
+                                                            Collectors.toMap(BankAccountEntity::getNumber, acc -> acc);
+        * */
+
         Map<String, BankAccountEntity> lockedAccounts =
                 repository.findAllForUpdateOrderByNumber(orderedNumbers).stream()
-                        .collect(Collectors.toMap(BankAccountEntity::getNumber, acc -> acc));
+                        .collect(map);
 
         // lockedAccounts.get(fromNumber) daje zablokowane konto źródłowe
         BankAccountEntity from = lockedAccounts.get(fromNumber);
@@ -201,7 +246,7 @@ public class BankAccountService {
                 TransactionType.TRANSFER_OUT,
                 amount,
                 from.getCurrency(),
-                "Transfer to " + to.getNumber(),
+                STR."Transfer to \{to.getNumber()}",
                 requestId
         ));
 
@@ -210,7 +255,7 @@ public class BankAccountService {
                 TransactionType.TRANSFER_IN,
                 amount,
                 to.getCurrency(),
-                "Transfer from " + from.getNumber(),
+                STR."Transfer from \{from.getNumber()}",
                 requestId
         ));
 
