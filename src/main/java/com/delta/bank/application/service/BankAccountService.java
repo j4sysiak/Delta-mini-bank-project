@@ -20,6 +20,7 @@ public class BankAccountService {
     private final BankAccountRepository repository;
     private final AccountTransactionRepository transactionRepository;
 
+    // BankAccountService tworzysz bezpośrednio przez konstruktor, więc Spring nie tworzy kontekstu ani proxy transakcyjnego
     public BankAccountService(BankAccountRepository repository,
                               AccountTransactionRepository transactionRepository) {
         this.repository = repository;
