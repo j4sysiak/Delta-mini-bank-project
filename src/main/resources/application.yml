@@ -30,3 +30,8 @@ management:
   endpoint:
     health:
       show-details: never
+
+bank:
+  transfer:
+    max-amount: 5000.00
+    default-currency: PLN

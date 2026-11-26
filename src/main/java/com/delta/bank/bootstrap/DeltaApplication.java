@@ -4,6 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import com.delta.bank.config.BankTransferProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+@EnableConfigurationProperties(BankTransferProperties.class)
 @SpringBootApplication(scanBasePackages = "com.delta.bank")
 @EnableJpaAuditing
 @org.springframework.data.jpa.repository.config.EnableJpaRepositories(basePackages = "com.delta.bank.domain")
