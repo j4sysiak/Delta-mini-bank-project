@@ -8,6 +8,8 @@ import com.delta.bank.domain.TransactionType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.delta.bank.config.BankTransferProperties;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +21,16 @@ public class BankAccountService {
 
     private final BankAccountRepository repository;
     private final AccountTransactionRepository transactionRepository;
+    private final BankTransferProperties transferProperties;
 
     // BankAccountService tworzysz bezpośrednio przez konstruktor, więc Spring nie tworzy kontekstu ani proxy transakcyjnego
     public BankAccountService(BankAccountRepository repository,
-                              AccountTransactionRepository transactionRepository) {
+                              AccountTransactionRepository transactionRepository,
+                              BankTransferProperties transferProperties) {
         this.repository = repository;
         this.transactionRepository = transactionRepository;
+        this.transferProperties = java.util.Objects.requireNonNull(
+                transferProperties, "transferProperties");
     }
 
     // Warto dodać @Transactional — dla Optimistic Locking: @Transactional + @Version działa razem.
@@ -143,6 +149,10 @@ public class BankAccountService {
                 requestId, fromNumber, TransactionType.TRANSFER_OUT
         ).isPresent()) {
             return false;
+        }
+
+        if (amount.compareTo(transferProperties.getMaxAmount()) > 0) {
+            throw new IllegalArgumentException("Transfer amount exceeds configured limit");
         }
 
         List<String> orderedNumbers = List.of(fromNumber, toNumber).stream()

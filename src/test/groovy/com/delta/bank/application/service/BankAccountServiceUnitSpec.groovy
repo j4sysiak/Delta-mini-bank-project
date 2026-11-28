@@ -6,6 +6,7 @@ import com.delta.bank.domain.BankAccountEntity
 import com.delta.bank.domain.BankAccountRepository
 import com.delta.bank.domain.TransactionType
 import spock.lang.Specification
+import com.delta.bank.config.BankTransferProperties
 
 class BankAccountServiceUnitSpec extends Specification {
 
@@ -18,7 +19,9 @@ class BankAccountServiceUnitSpec extends Specification {
     BankAccountService service
 
     def setup() {
-        service = new BankAccountService(accountRepository, transactionRepository)
+        service = new BankAccountService(accountRepository,
+                transactionRepository,
+                new BankTransferProperties())
     }
 
     def "wpłata (deposit) odrzuca kwotę niedodatnią przed dostępem do repozytoriów"() {

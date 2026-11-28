@@ -3,6 +3,7 @@ package com.delta.bank
 import com.delta.bank.application.service.BankAccountService
 import com.delta.bank.domain.*
 import spock.lang.Specification
+import com.delta.bank.config.BankTransferProperties
 
 class SpockMocksSpec extends Specification {
 
@@ -10,7 +11,9 @@ class SpockMocksSpec extends Specification {
         given:
         def repository = Mock(BankAccountRepository)
         def transactionRepository = Mock(AccountTransactionRepository)
-        def service = new BankAccountService(repository, transactionRepository)
+        def service = new BankAccountService(repository,
+                transactionRepository,
+                new BankTransferProperties())
 
         def account = new BankAccountEntity(
                 "PLN-MOCK-01",
@@ -42,7 +45,9 @@ class SpockMocksSpec extends Specification {
         given:
         def repository = Mock(BankAccountRepository)
         def transactionRepository = Mock(AccountTransactionRepository)
-        def service = new BankAccountService(repository, transactionRepository)
+        def service = new BankAccountService(repository,
+                transactionRepository,
+                new BankTransferProperties())
 
         def account = new BankAccountEntity(
                 "PLN-MOCK-02",
@@ -86,7 +91,9 @@ class SpockMocksSpec extends Specification {
         given:
         def repository = Mock(BankAccountRepository)
         def transactionRepository = Mock(AccountTransactionRepository)
-        def service = new BankAccountService(repository, transactionRepository)
+        def service = new BankAccountService(repository,
+                transactionRepository,
+                new BankTransferProperties())
 
         def account = new BankAccountEntity(
                 "PLN-MOCK-03",
@@ -124,7 +131,9 @@ class SpockMocksSpec extends Specification {
         given:
         def repository = Mock(BankAccountRepository)
         def transactionRepository = Mock(AccountTransactionRepository)
-        def service = new BankAccountService(repository, transactionRepository)
+        def service = new BankAccountService(repository,
+                transactionRepository,
+                new BankTransferProperties())
 
         when:
         service.find("PLN-MOCK-04")
